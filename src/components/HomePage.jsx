@@ -7,14 +7,14 @@ export const Home = () => {
   const [inputValue, setInputValue] = useState("");
   const [allData, setAllData] = useState([]);
   const dispatch = useDispatch();
-
+  // console.log(allData);
   useEffect(() => {
     dispatch(fetchProduct());
   }, [dispatch]);
 
   const products = useSelector((state) => state.counter.products);
   const productFilter = useSelector((state) => state.rangeData.product);
-  console.log(productFilter);
+  // console.log(productFilter);
   useEffect(() => {
     setAllData(products);
   }, [products]);
@@ -36,13 +36,13 @@ export const Home = () => {
   //////////////////////////....CartHandler.....///////////////////////////
   const data = useSelector((state) => state.cartData.products);
   const CartHandler = (e) => {
-    const details = { id: e.id, title: e.title, price: e.price, description: e.description, images: e.images };
-    const findDetails = data.find((item) => item.id === e.id);
-    if (findDetails) {
-      alert("already added this item");
-    } else {
-      dispatch(addData(details));
-    }
+    const details = { id: e.id, count: 1, title: e.title, price: e.price, description: e.description, images: e.images };
+    dispatch(addData({ details: details, cardData: data }));
+    // const findDetails = data.find((item) => item.id === e.id);
+    // if (findDetails) {
+    //   alert("already added this item");
+    // } else {
+    // }
   };
   // .........................................................................
   return (
@@ -60,10 +60,10 @@ export const Home = () => {
       <div className="mt-10 mx-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 auto-cols-auto">
         {productFilter && productFilter.length > 0 ? (
           productFilter.map((item) => (
-            <div className="relative bg-purple-200 rounded-b-lg border-2 border-gray-500 w-full overflow-hidden hover:scale-95 duration-700 ease-in-out" key={item.id}>
+            <div className="relative bg-purple-200 rounded-b-lg border-2 border-gray-500 w-full overflow-hidden hover:scale-95 duration-300 " key={item.id}>
               <div className="absolute bg-purple-600 text-white text-lg top-10 animate-pulse left-0 w-2/5 text-center line-clamp-1 z-20">{item?.brand}</div>
               <div className="w-full h-52 overflow-hidden">
-                <img className="w-full h-full object-fill hover:scale-110 duration-700 ease-in-out" src={item?.images[0]} alt={item?.title} />
+                <img className="w-full h-full object-fill hover:scale-110 duration-700 ease-in-out" src={item?.images[2] || item?.images[1] || item?.images[0]} alt={item?.title} />
               </div>
               <p className="px-2 font-bold text-xl line-clamp-1">{item?.title}</p>
               <p className="px-2 line-clamp-1 text-gray-500">{item?.description}</p>
@@ -84,7 +84,7 @@ export const Home = () => {
               </div>
               <button
                 onClick={(e) => CartHandler(item)}
-                className="border-2 border-purple-600 bg-white rounded-md md:px-7 px-4 py-1 my-2 ml-3 hover:bg-purple-600 hover:text-white hover:border-purple-900 hover:scale-105 duration-300 ease-in-out">
+                className="border-2 border-purple-600 bg-white rounded-md md:px-7 px-4 py-1 my-2 ml-3 hover:bg-purple-600 hover:text-white hover:border-purple-900 hover:scale-105 ">
                 Add To Cart
               </button>
             </div>
