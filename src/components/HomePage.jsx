@@ -10,6 +10,7 @@ export const Home = () => {
   // console.log(allData);
   useEffect(() => {
     dispatch(fetchProduct());
+    console.log(allData);
   }, [dispatch]);
 
   const products = useSelector((state) => state.counter.products);
@@ -38,11 +39,6 @@ export const Home = () => {
   const CartHandler = (e) => {
     const details = { id: e.id, count: 1, title: e.title, price: e.price, description: e.description, images: e.images };
     dispatch(addData({ details: details, cardData: data }));
-    // const findDetails = data.find((item) => item.id === e.id);
-    // if (findDetails) {
-    //   alert("already added this item");
-    // } else {
-    // }
   };
   // .........................................................................
   return (
